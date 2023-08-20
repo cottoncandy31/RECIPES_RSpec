@@ -1,0 +1,79 @@
+<% if @user.is_deleted %>
+  <div class="d-flex justify-content-center align-items-center" style="min-height: 200px;">
+    <h3 class="text-center">ユーザーは退会済みです</h3>
+  </div>
+<% else %>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-8 col-md-11 col-lg-10 col-xl-8 px-sm-0 px-md-1">
+        <h3 class="bg-light text-center ml-5 mb-4" style="max-width: 500px;"><%= @user.name %>さんのレシピ投稿</h3>
+        <div class="d-flex align-items-center">
+          <div class="mr-3 rounded-circle" style="overflow: hidden; width: 100px; height: 100px;">
+            <%= image_tag @user.get_profile_image(100, 100), class: "w-100 h-100" %>
+          </div>
+          <div>
+            <div><%= link_to "フォロー数: #{@user.followings.published.count}", followings_public_user_path(@user) %></div>
+            <div><%= link_to "フォロワー数: #{@user.followers.published.count}", followers_public_user_path(@user) %></div>
+          </div>
+          <div class="ml-5">
+            <!-- フォローボタンの表示 非同期通信化 -->
+            <div id="follow-btn_<%= @user.id %>"><%= render "public/users/follow-btn", user: @user %></div>
+          </div>
+          <div class="ml-5">
+            <% if @user != current_user %>
+              <% if current_user.reporter.exists?(reported_id: @user.id) %>
+                <%= button_tag "通報済み", class: "btn btn-secondary", disabled: true %>
+              <% else %>
+                <%= form_with model: @report, url: public_user_reports_create_path(@user), method: :post do |f| %>
+                  <h6>通報理由を以下にご記入ください。</h6>
+                  <%= f.text_field :reason, class: "form-control" %>
+                  <%= f.submit "ユーザーを通報" %>
+                <% end %>
+              <% end %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% if @recipes.published.empty? %>
+    <div class="d-flex justify-content-center align-items-center" style="min-height: 200px;">
+      <h3 class="text-center">投稿はありません</h3>
+    </div>
+  <% else %>
+    <div class="row justify-content-center">
+      <div class="col-sm-8 col-md-11 col-lg-10 col-xl-12 px-sm-0 px-md-1">
+        <div class="p-3">
+          <div class="row recipe-row">
+            <% @recipes.each do |recipe| %>
+              <% if recipe.is_deleted == false %>
+                <div class="col-6 col-sm-4 col-md-3 col-lg-2">
+                  <%= link_to public_recipe_path(recipe.id) do %>
+                    <div class="text-center">
+                      <% if recipe.post_image.attached? %>
+                        <%= image_tag recipe.post_image, class: "img-fluid mb-2 recipe-image", style: "max-height: 180px;" %>
+                      <% else %>
+                        <!-- 画像が存在しない場合も180px×180pxの間隔を空けるように設定 -->
+                        <div class="recipe-placeholder"></div>
+                      <% end %>
+                      <div class="recipe-title">
+                        <p class="mb-0"><%= recipe.title %></p>
+                      </div>
+                    </div>
+                  <% end %>
+                </div>
+              <% else %>
+                <div class="col-6 col-sm-4 col-md-3 col-lg-2">
+                  <div class="text-center">
+                    <p class="text-muted">管理者によって投稿が削除されました</p>
+                  </div>
+                </div>
+              <% end %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+<% end %>
+
+

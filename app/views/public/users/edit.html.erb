@@ -1,0 +1,56 @@
+<div class="container my-4 px-sm-1">
+  <div class="px-1 ml-md-3">
+    <h5 class="bg-light text-center ml-5 mb-4" style="width: 160px;">登録情報編集</h5>
+  </div>
+  <div class="col-sm-12 col-md-11 col-lg-11 col-xl-9 px-sm-0 px-md-1 mt-3">
+    <%= form_with(model: @user, url: public_user_path(@user)) do |f| %>
+
+      <% if @user.errors.any? %>
+          <%= @user.errors.count %>件のエラーが発生しました
+          <ul>
+            <%  @user.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+      <% end %>
+        
+      <form>
+        <div class="form-group row ml-3">
+          <label class="col-md-3 col-form-label">ユーザー名</label>
+          <div class="col-md-9 form-row">
+            <div class="col-md-4 mr-md-5">
+              <%= f.text_field :name, class: "form-control" %>
+            </div>
+          </div>
+        </div>
+  
+        <div class="form-group row ml-3">
+          <label class="col-md-3 col-form-label">メールアドレス</label>
+          <div class="col-md-9 form-row">
+            <div class="col-md-6">
+              <%= f.email_field :email, class: "form-control" %>
+            </div>
+          </div>
+        </div>
+        
+        <div class="form-group row ml-3">
+          <label class="col-md-3 col-form-label">プロフィール画像</label>
+          <div class="col-md-9 form-row">
+            <div class="col-md-6">
+              <%= f.file_field :profile_image, accept: "image/*" %>  
+            </div>
+          </div>
+        </div>
+  
+        <div class="form-group row ml-3">
+          <label class="col-md-3 col-form-label"></label>
+          <div class="col-md-9 form-row">
+            <div class="col-5">
+              <%= f.submit "編集内容を保存", class: "btn btn-success px-5" %>
+            </div>
+          </div>
+        </div>
+      </form>
+    <% end %>
+  </div>
+</div>

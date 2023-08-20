@@ -1,0 +1,58 @@
+<style>
+  /* タイトルに適用するフォント */
+  .section-title {
+    font-family: 'title', Arial Black; /* 適切なフォント名を指定 */
+  }
+  /* 本文に適用するフォント */
+  .section-content {
+    font-family: 'body', Arial; /* 適切なフォント名を指定 */
+  }
+</style>
+
+<div class="container my-4 px-sm-1" style="max-width: 1000px;">
+  <div class="row" style="height: 35vh; display: flex; justify-content: center; align-items: center;">
+    <div class="col-12" data-aos="fade-right" data-aos-duration="600">
+      <%= image_tag asset_path('top.font.png'), class: 'img-fluid' %>
+    </div>
+  </div>
+  <div class="row" style="height: 100vh">
+    <div class="col-6" data-aos="fade-up" data-aos-duration="600">
+      <%= image_tag asset_path('top6.jpg'), class: 'img-fluid' %>
+    </div>
+    <div class="col-6" data-aos="fade-left" data-aos-duration="600">
+      <h1 class="section-title">ABOUT</h1>
+      </br>
+      <h4 class="section-content">
+        このサイトでは、様々な料理のレシピを紹介しています。</br></br>
+        みんなのレシピ投稿を見て、作りたいレシピを見つけてみましょう！
+      </h4>
+      <%= image_tag asset_path('dish.png'), class: 'img-fluid' %>
+    </div>
+  </div>
+  <div class="row" style="height: 100vh">
+    <div class="col-6" data-aos="fade-right" data-aos-duration="600">
+      <h1>条件に絞ったレシピ検索</h1></br>
+      <h4>
+        様々な条件に合わせて、作りたいレシピを手間なく検索できます。</br></br>
+        ジャンルや予算から作りたい料理のレシピを見つけてみましょう！
+      </h4>
+      <%= image_tag asset_path('food.png'), class: 'img-fluid' %>
+    </div>
+    <div class="col-6" data-aos="fade-up" data-aos-duration="600">
+      <%= image_tag asset_path('top5.jpg'), class: 'img-fluid' %>
+    </div>
+  </div>
+  <div class="row" style="height: 100vh">
+    <div class="col-6" data-aos="fade-up" data-aos-duration="600">
+      <%= image_tag asset_path('top7.jpg'), class: 'img-fluid' %>
+    </div>
+    <div class="col-6" data-aos="fade-left" data-aos-duration="600">
+      <h1>ユーザー同士の繋がり</h1></br>
+      <h4>
+      フォローするだけでなく、コメントやいいねを通じて直接コミュニケーションをとることもできます。</br></br>
+      新しい仲間を見つけ、料理を通じて人々と交流を深めてみませんか？
+      </h4>
+      <%= image_tag asset_path('relation.png'), class: 'img-fluid' %>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,146 @@
+@import '~bootstrap/scss/bootstrap';
+//#Font Awesomeの導入(デプロイ時に本番環境にもインストールする)
+// @import '@fortawesome/fontawesome-free/scss/fontawesome';
+
+.navbar-text {
+  color: #fff !important; /* 白色に設定 */
+}
+
+/* flexを用いてフッターを固定する */
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  display: flex;
+  //横並びのものを縦並びに設定
+  flex-direction: column;
+  //body部分の背景色
+  background: #fdf9f2;
+}
+
+footer {
+  margin-top: auto;
+  color: #fff;
+  text-align: center;
+}
+
+/* ロゴの大きさを設定 */
+.logo_area {
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  height: 50px;
+  width: 100px;
+  object-fit: cover;
+}
+
+// #Bootstrap上で特定の色を指定できるように、/cooking_recipes/app/views/layouts/_header.html.erbにbg-testというクラス名を作成している
+// このファイル上でbackground-colorを指定している
+.bg-test {
+  background-color: #b75e21;
+}
+
+// ヘッダー部分のメニューボタンに関するレイアウト
+.btn-custom {
+  color: #fff; /* ボタンのテキストの色 */
+  // background-color: #ffdab9; /* ボタンの通常時の背景色 */
+  // border-color: #f08300;
+  // transition: background-color 0.3s ease; /* アニメーションの設定 */
+}
+
+//ブックマークボタンの色
+.btn-bookmark {
+  background-color: #9aa8b5; /* ボタンの通常時の背景色 */
+  border-color: #9aa8b5;
+}
+.btn-bookmark:hover {
+  background-color: #2a8d07; /* カーソルを合わせた際の背景色 */
+  border-color: #2a8d07
+}
+
+//コメント送信ボタンの色
+.btn-comment {
+  background-color: #246f0a; /* ボタンの通常時の背景色 */
+  border-color: #246f0a;
+}
+.btn-comment:hover {
+  background-color: #2a8d07; /* カーソルを合わせた際の背景色 */
+  border-color: #2a8d07
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #b75e21;
+    border-color: #b75e21;
+}
+.btn-primary:hover {
+  color: #fff;
+  background-color: #c96622;
+  border-color: #c96622;
+}
+
+//フラッシュメッセージ
+.flash-message {
+  border-radius: 5px;
+  padding: 16px 24px;
+  margin: 16px 0px;
+}
+
+.flash-message.notice {
+  background-color: #bcdfff;
+  color: #0067C0;
+  border: solid 1px #0067C0;
+}
+
+.flash-message.alert {
+  background-color: #ffd4d1;
+  color: #930403;
+  border: solid 1px #930403;
+}
+
+//RECIPES/app/views/public/recipes/show.html.erbで使用
+.step-number {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.btn-link {
+  color: #fff;
+}
+.btn-link:hover {
+  color: #fff;
+}
+
+.navbar-dark .navbar-text {
+  color: #ffffff;
+}
+
+.btn-success {
+  color: #fff;
+  background-color: #246f0a;
+  border-color: #246f0a;
+}
+
+// a:active {
+//   background-color: #246f0a !important;
+// }
+
+.page-item.active .page-link {
+  background-color: #246f0a;
+  border-color: #246f0a;
+}
+
+.btn-description {
+  color: #007bff;
+}
+
