@@ -1,4 +1,3 @@
-# spec/models/step_spec.rb
 require 'rails_helper'
 
 RSpec.describe Step, type: :model do
