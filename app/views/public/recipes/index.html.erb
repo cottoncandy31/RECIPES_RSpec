@@ -23,14 +23,14 @@
         </div>
       </div>
     <% end %>
-    <!--#並べ替え 新着順/いいね順-->
+    <!--#並べ替え 新着順/いいね順test-->
     <%= link_to '新着順', public_recipes_path(latest: "true") %>/
     <%= link_to '人気順', public_recipes_path(most_favorited: "true") %>
 
     <div class="row row-cols-1 row-cols-md-5 g-5">
       <% @recipes.each do |recipe| %>
         <% if recipe.is_deleted == false %>
-          <div class="col">
+          <div class="col mb-4">
             <div class="card h-100">
               <% if recipe.post_image.attached? %>
                 <%= link_to public_recipe_path(recipe) do %>
