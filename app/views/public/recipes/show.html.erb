@@ -135,32 +135,56 @@
                   </button>
                 </div>
                 <div class="modal-body">
-                  <% @recipe.comments.each do |comment| %>
-                    <div class="row">
-                      <!--#会員ステータスが有効且つ管理者によってコメントが削除されていない場合-->
-                      <% if comment.user.is_deleted == false && comment.is_deleted == false %>
-                        <div class="col-10" style="margin-top: 20px">
-                          <%= link_to recipes_public_user_path(comment.user) do %>
-                            <%= image_tag comment.user.get_profile_image(100, 100), class: "img-fluid rounded-circle mr-2", style: 'max-width:30px;' %>
-                          <% end %>
-                          <%= link_to comment.user.name, recipes_public_user_path(comment.user) %><br>
-                          <%= simple_format(comment.comment) %>
-                        </div>
-                        <div class="col-2" style="margin-top: 20px">
-                          <% if comment.user == current_user %>
-                            <%= link_to "削除", public_recipe_comment_path(comment.recipe, comment), method: :delete, data: { confirm: '本当に消しますか？' } %>
-                          <% end %>
-                        </div>
-                      <!--#会員ステータスが有効且つ管理者によってコメントが削除された場合-->
-                      <% elsif comment.user.is_deleted == false && comment.is_deleted == true %>
-                        <% if comment.user == current_user %>
-                          <div class="col-12" style="margin-top: 20px">
-                            <p class="text-muted">管理者によってコメントが削除されました</p>
+                  <% if @recipe.comments.present? %>
+                    <% @recipe.comments.each do |comment| %>
+                      <div class="row">
+                        <!--#会員ステータスが有効且つ管理者によってコメントが削除されていない場合-->
+                        <% if comment.user.is_deleted == false && comment.is_deleted == false %>
+                          <div class="col-10" style="margin-top: 20px">
+                            <%= link_to recipes_public_user_path(comment.user) do %>
+                              <%= image_tag comment.user.get_profile_image(100, 100), class: "img-fluid rounded-circle mr-2", style: 'max-width:30px;' %>
+                            <% end %>
+                            <%= link_to comment.user.name, recipes_public_user_path(comment.user) %>
+                            <!--「time_ago_string」関するコード-->
+                            <% comment.created_at = comment.created_at.in_time_zone("Tokyo") %>
+                            <% time_ago = Time.zone.now - comment.created_at %>
+                            <% seconds_ago = time_ago.to_i %>
+                            <% if seconds_ago < 60 %>
+                              <% time_ago_string = "#{seconds_ago}秒前" %>
+                            <% elsif seconds_ago < 3600 %>
+                              <% minutes_ago = seconds_ago / 60 %>
+                              <% time_ago_string = "#{minutes_ago}分前" %>
+                            <% elsif seconds_ago < 86400 %>
+                              <% hours_ago = seconds_ago / 3600 %>
+                              <% time_ago_string = "#{hours_ago}時間前" %>
+                            <% else %>
+                              <% days_ago = seconds_ago / 86400 %>
+                              <% time_ago_string = "#{days_ago}日前" %>
+                            <% end %>
+                            <!-- コメントの投稿時間を表示 -->
+                            <%= time_ago_string %><br>
+                            <%= simple_format(comment.comment) %>
                           </div>
+                          <div class="col-2" style="margin-top: 20px">
+                            <% if comment.user == current_user %>
+                              <%= link_to "削除", public_recipe_comment_path(comment.recipe, comment), method: :delete, data: { confirm: '本当に消しますか？' } %>
+                            <% end %>
+                          </div>
+                        <!--#会員ステータスが有効且つ管理者によってコメントが削除された場合-->
+                        <% elsif comment.user.is_deleted == false && comment.is_deleted == true %>
+                          <% if comment.user == current_user %>
+                            <div class="col-12" style="margin-top: 20px">
+                              <p class="text-muted">管理者によってコメントが削除されました</p>
+                            </div>
+                          <% end %>
+                        <!--#会員ステータスが退会済みの場合-->
+                        <% elsif comment.user.is_deleted= true && comment.is_deleted == false %>
                         <% end %>
-                      <!--#会員ステータスが退会済みの場合-->
-                      <% elsif comment.user.is_deleted= true && comment.is_deleted == false %>
-                      <% end %>
+                      </div>
+                    <% end %>
+                  <% else %>
+                    <div class="col-12">
+                      <p class="text-muted">コメントがありません</p>
                     </div>
                   <% end %>
                 </div>
@@ -193,3 +217,4 @@
     <h3 class="text-center">レシピはありません</h3>
   </div>
 <% end %>
+

@@ -54,48 +54,53 @@
 
 <!-- コメント一覧のモーダルウィンドウ -->
 <div class="modal fade" id="commentModal" tabindex="-1" role="dialog" aria-labelledby="commentModalLabel" aria-hidden="true">
-  <div class="modal fade" id="commentModal" tabindex="-1" role="dialog" aria-labelledby="commentModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="commentModalLabel">コメント一覧</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="commentModalLabel">コメント一覧</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <% if @recipe.comments.present? %>
+          <% @recipe.comments.each do |comment| %>
+            <div class="row">
+              <% if comment.is_deleted %>
+                <div class="col-12">
+                  <p class="text-muted">削除済みのコメント</p>
                 </div>
-                <div class="modal-body">
-                  <% @recipe.comments.each do |comment| %>
-                    <div class="row">
-                      <% if comment.is_deleted %>
-                        <div class="col-12">
-                          <p class="text-muted">削除済みのコメント</p>
-                        </div>
-                        <div class="col-12">
-                          <%= comment.comment %>
-                        </div>
-                        <div class="col-12">
-                          by <%= link_to comment.user.name, admin_user_path(comment.user) %>
-                        </div>
-                      <% else %>
-                        <div class="col-12">
-                          <%= comment.comment %>
-                        </div>
-                        <div class="col-12">
-                          by <%= link_to comment.user.name, admin_user_path(comment.user) %>
-                        </div>
-                        <div class="col-12">
-                          <% if comment.user.is_deleted == false %>
-                            <%= link_to "削除", admin_recipe_comment_path(comment.recipe, comment), method: :patch, data: { confirm: "本当に削除しますか？" } %>
-                          <% else %>
-                          <% end %>
-                        </div>
-                      <% end %>
-                    </div>
-                    <hr>
+                <div class="col-12">
+                  <%= comment.comment %>
+                </div>
+                <div class="col-12">
+                  by <%= link_to comment.user.name, admin_user_path(comment.user) %>
+                </div>
+              <% else %>
+                <div class="col-12">
+                  <%= comment.comment %>
+                </div>
+                <div class="col-12">
+                  by <%= link_to comment.user.name, admin_user_path(comment.user) %>
+                </div>
+                <div class="col-12">
+                  <% if comment.user.is_deleted == false %>
+                    <%= link_to "削除", admin_recipe_comment_path(comment.recipe, comment), method: :patch, data: { confirm: "本当に削除しますか？" } %>
+                  <% else %>
                   <% end %>
                 </div>
-              </div>
+              <% end %>
             </div>
+            <hr>
+          <% end %>
+        <% else %>
+          <div class="col-12">
+            <p class="text-muted">コメントがありません</p>
           </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
 </div>
+
 
