@@ -35,6 +35,9 @@
             <div class="recipe-info">
               <h6>材料費/人：<%= @recipe.price_range.name %></h6>
             </div>
+            <div class="recipe-info">
+              <h6>投稿日時：<%= @recipe.created_at.strftime('%Y/%m/%d') %></h6>
+            </div>
             <a href="#" data-toggle="modal" data-target="#descriptionModal">
               <!--#simple_formatメソッドを使用して改行を反映させる-->
               <%= simple_format(truncate(@recipe.body, length: 50, omission: '...')) %>
